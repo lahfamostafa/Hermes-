@@ -4,6 +4,7 @@ import "./App.css"
 export function Form() {
   const [error, setError] = useState('')
   const [inputValue, setInputValue] = useState('')
+  const [filter , setFilter] = useState('All')
 
   const [toDos, setTodo] = useState(() => {
     const data = localStorage.getItem("todos")
@@ -48,6 +49,14 @@ export function Form() {
     setTodo(newTodos)
   }
 
+  const noComplete = () =>{
+    const newTodos = toDos.filter(())
+  }
+
+  const complete = () =>{
+    
+  }
+
 
   return (
     <>
@@ -67,6 +76,21 @@ export function Form() {
           </button>
         </div>
       </form>
+      <div className="filters">
+
+        <button className="filterBtn active" onClick={()=>{afficher}}>
+          All
+        </button>
+
+        <button className="filterBtn" onClick={()=>{noComplete}}>
+          Active
+        </button>
+
+        <button className="filterBtn" onClick={()=>{complete}}>
+          Completed
+        </button>
+
+      </div>
       <ul className="list">
         {toDos.map((item, index) => {
           return (
