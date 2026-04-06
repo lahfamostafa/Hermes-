@@ -16,7 +16,7 @@ export function Form() {
 
     if (inputValue.trim() === '') return setError('input khawi')
 
-    setTodo((prev) => [...prev, inputValue])
+    setTodo((prev) => [...prev, {"text" : inputValue, "completed" : false}])
     setInputValue('')
     setError('')
   }
@@ -29,9 +29,23 @@ export function Form() {
   }
 
   const supprimer = (indexToDelete) => {
-      const newTodos = toDos.filter((index,item)=>{
-        index !== indexToDelete
+      const newTodos = toDos.filter((item,index)=>{
+        return index !== indexToDelete
       })
+      setTodo(newTodos)
+  }
+
+  const completed = (indexToUpdate) =>{
+    const newTodos = toDos.map((item, index)=>{
+      if(indexToUpdate === index){
+        return {
+          ...item,
+          completed : !item.completed
+        }
+      }
+      return item
+    })
+    setTodo(newTodos)
   }
 
 
@@ -59,11 +73,14 @@ export function Form() {
             <li className="todoItem" key={index}>
 
               <div className="left">
-                <input type="checkbox" className="check" />
-                <span className="text">{item}</span>
+                <input type="checkbox" checked={item.completed} className="check" onChange={()=>completed(index)} />
+                <span className={item.completed?"text done":"text"}>{item.text}</span>
               </div>
 
-              <button className="deleteBtn"  onClick={()=>supprimer(index)}>Delete</button>
+              <button className="deleteBtn"  onClick={(e)=>{
+                e.stopPropagation()
+                supprimer(index)
+              }}>Delete</button>
 
             </li>
           )
