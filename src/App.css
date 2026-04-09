@@ -185,119 +185,285 @@
 
 /**********************************/
 
-body{
-  background: #0f172a;
-  font-family: Arial, Helvetica, sans-serif;
-}
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=Outfit:wght@300;400;500;600&display=swap');
 
-form{
-  width: 400px;
-  margin: 50px auto;
-  background: #1e293b;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.3);
-}
-
-.formControl{
-  display: flex;
-  gap: 10px;
-}
-
-.input{
-  flex: 1;
-  padding: 10px;
-  border: none;
-  border-radius: 6px;
-  outline: none;
-}
-
-.addBtn{
-  background: #22c55e;
-  color: white;
-  border: none;
-  padding: 10px 15px;
-  border-radius: 6px;
-  cursor: pointer;
-}
-
-.addBtn:hover{
-  background: #16a34a;
-}
-
-.list{
-  list-style: none;
+/* ── Reset & Root ── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
   padding: 0;
-  margin-top: 20px;
 }
 
-.todoItem{
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: #334155;
-  padding: 10px;
-  border-radius: 6px;
-  margin-bottom: 10px;
+:root {
+  --bg:        #0f0e17;
+  --surface:   #1a1827;
+  --surface2:  #221f33;
+  --accent:    #e8c547;
+  --accent2:   #ff6b6b;
+  --text:      #f0eeff;
+  --muted:     #7b7898;
+  --border:    rgba(255,255,255,0.07);
+  --radius:    14px;
+  --radius-sm: 8px;
 }
 
-.left{
+/* ── Page background ── */
+body {
+  min-height: 100vh;
+  background-color: var(--bg);
+  background-image:
+    radial-gradient(ellipse 60% 40% at 20% 10%, rgba(232,197,71,0.08) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 40% at 80% 90%, rgba(108,92,231,0.12) 0%, transparent 60%);
+  font-family: 'Outfit', sans-serif;
+  color: var(--text);
   display: flex;
-  align-items: center;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 3rem 1rem 5rem;
+}
+
+/* ── App wrapper (wrap your JSX in a div.app-wrapper) ── */
+.app-wrapper {
+  width: 100%;
+  max-width: 500px;
+}
+
+/* ── Heading (add an <h1 className="app-title"> above your form) ── */
+.app-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.6rem;
+  font-weight: 500;
+  letter-spacing: -0.5px;
+  color: var(--text);
+  line-height: 1.1;
+  margin-bottom: 0.2rem;
+}
+
+.app-title span {
+  color: var(--accent);
+}
+
+.app-subtitle {
+  font-size: 0.82rem;
+  color: var(--muted);
+  font-weight: 300;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+}
+
+/* ── Form ── */
+form {
+  margin-bottom: 1rem;
+}
+
+.formControl {
+  display: flex;
   gap: 10px;
 }
 
-.text{
-  color: white;
+/* ── Input ── */
+.input {
+  flex: 1;
+  height: 50px;
+  padding: 0 16px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
 
-.check{
+.input::placeholder {
+  color: var(--muted);
+}
+
+.input:focus {
+  border-color: rgba(232, 197, 71, 0.5);
+  box-shadow: 0 0 0 4px rgba(232, 197, 71, 0.08);
+}
+
+/* ── Add Button ── */
+.addBtn {
+  height: 50px;
+  padding: 0 22px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: #0f0e17;
+  background: var(--accent);
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: background 0.18s, transform 0.1s, box-shadow 0.18s;
+  white-space: nowrap;
+}
+
+.addBtn:hover {
+  background: #f0d060;
+  box-shadow: 0 4px 20px rgba(232, 197, 71, 0.35);
+}
+
+.addBtn:active {
+  transform: scale(0.96);
+}
+
+/* ── Error ── */
+.error {
+  font-size: 0.78rem;
+  color: var(--accent2);
+  margin-top: 8px;
+  padding-left: 4px;
+  min-height: 1rem;
+  font-weight: 400;
+}
+
+/* ── Filters ── */
+.filters {
+  display: flex;
+  gap: 6px;
+  margin: 1.4rem 0 1.2rem;
+  background: var(--surface);
+  padding: 5px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+}
+
+.filterBtn {
+  flex: 1;
+  padding: 8px 0;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all 0.18s;
+  text-transform: uppercase;
+}
+
+.filterBtn:hover {
+  color: var(--text);
+}
+
+.filterBtn.active {
+  background: var(--surface2);
+  color: var(--accent);
+  box-shadow: inset 0 0 0 1px rgba(232, 197, 71, 0.2);
+}
+
+/* ── Todo List ── */
+.list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* ── Todo Item ── */
+.todoItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  transition: border-color 0.18s, transform 0.15s;
+  animation: fadeSlideIn 0.22s ease both;
+}
+
+@keyframes fadeSlideIn {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.todoItem:hover {
+  border-color: rgba(255,255,255,0.14);
+  transform: translateX(3px);
+}
+
+.left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  min-width: 0;
+}
+
+/* ── Checkbox ── */
+.check {
   width: 18px;
   height: 18px;
-}
-
-.deleteBtn{
-  background: #ef4444;
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  border-radius: 5px;
+  flex-shrink: 0;
+  accent-color: var(--accent);
   cursor: pointer;
+  border-radius: 50%;
 }
 
-.deleteBtn:hover{
-  background: #dc2626;
+/* ── Todo Text ── */
+.text {
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: var(--text);
+  line-height: 1.4;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: color 0.2s;
 }
 
-.error{
-  color: red;
-  margin-top: 10px;
-}
-.done{
+.text.done {
   text-decoration: line-through;
-  opacity: 0.6;
-} 
-.filters{
+  color: var(--muted);
+}
+
+/* ── Delete Button ── */
+.deleteBtn {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
   display: flex;
+  align-items: center;
   justify-content: center;
-  gap: 10px;
-  margin-top: 20px;
-}
-
-.filterBtn{
-  background: #334155;
-  color: white;
-  border: none;
-  padding: 8px 15px;
-  border-radius: 6px;
+  font-size: 1rem;
+  font-family: 'Outfit', sans-serif;
+  color: var(--muted);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
   cursor: pointer;
-  transition: 0.3s;
+  opacity: 0;
+  transition: all 0.15s;
 }
 
-.filterBtn:hover{
-  background: #475569;
+.todoItem:hover .deleteBtn {
+  opacity: 1;
 }
 
-.filterBtn.active{
-  background: #22c55e;
-} 
+.deleteBtn:hover {
+  color: var(--accent2);
+  background: rgba(255, 107, 107, 0.1);
+  border-color: rgba(255, 107, 107, 0.25);
+}
+
+/* ── Empty state ── */
+.list:empty::after {
+  content: 'Aucune tâche pour l\'instant ✦';
+  display: block;
+  text-align: center;
+  padding: 2.5rem 0;
+  color: var(--muted);
+  font-size: 0.85rem;
+  font-weight: 300;
+  letter-spacing: 0.05em;
+}
